@@ -12,7 +12,7 @@ public class NetworkedClient : MonoBehaviour
     int reliableChannelID;
     int unreliableChannelID;
     int hostID;
-    int socketPort = 20101;
+    int socketPort = 5491;
     byte error;
     bool isConnected = false;
     int ourClientID;
