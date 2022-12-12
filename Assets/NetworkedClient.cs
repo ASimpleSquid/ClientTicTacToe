@@ -27,7 +27,7 @@ public class NetworkedClient : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.S))
+        if (Input.GetKeyDown(KeyCode.S))
             SendMessageToHost("Hello from client");
 
         UpdateNetworkConnection();
@@ -63,7 +63,7 @@ public class NetworkedClient : MonoBehaviour
             }
         }
     }
-    
+
     private void Connect()
     {
 
@@ -91,12 +91,12 @@ public class NetworkedClient : MonoBehaviour
             }
         }
     }
-    
+
     public void Disconnect()
     {
         NetworkTransport.Disconnect(hostID, connectionID, out error);
     }
-    
+
     public void SendMessageToHost(string msg)
     {
         byte[] buffer = Encoding.Unicode.GetBytes(msg);
@@ -107,11 +107,20 @@ public class NetworkedClient : MonoBehaviour
     {
         Debug.Log("msg recieved = " + msg + ".  connection id = " + id);
     }
-
     public bool IsConnected()
     {
         return isConnected;
     }
-
-
+}
+public static class ClientToServerSignifiers
+{
+    public const int CreateAccount = 1;
+    public const int Login = 2;
+}
+public static class ServerToClientSignifiers
+{
+    public const int LoginComplete = 1;
+    public const int LoginFailed = 2;
+    public const int AccountCreationComplete = 3;
+    public const int AccountCreationFailed = 4;
 }
