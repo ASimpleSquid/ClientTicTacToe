@@ -3,7 +3,13 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - LogInPage
+  - Title
+  - LogIn
+  - Password
+  - Username
+  - NewUser
   layers:
   - Default
   - TransparentFX

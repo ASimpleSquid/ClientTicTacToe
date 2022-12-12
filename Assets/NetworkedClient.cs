@@ -17,10 +17,19 @@ public class NetworkedClient : MonoBehaviour
     byte error;
     bool isConnected = false;
     int ourClientID;
+    GameObject gameSystemManager;
 
     // Start is called before the first frame update
     void Start()
     {
+        GameObject[] allobjects = FindObjectsOfType<GameObject>();
+        foreach (GameObject go in allobjects)
+        {
+            if (go.GetComponent<GameSystemManager>() != null)
+            {
+                gameSystemManager = go;
+            }
+        }
         Connect();
     }
 
@@ -106,6 +115,34 @@ public class NetworkedClient : MonoBehaviour
     private void ProcessRecievedMsg(string msg, int id)
     {
         Debug.Log("msg recieved = " + msg + ".  connection id = " + id);
+
+        string[] csv = msg.Split(',');
+        if (csv.Length > 0)
+        {
+            int signifier = int.Parse(csv[0]);
+            if (signifier == ServerToClientSignifiers.LoginComplete)//msg format: signifier, name
+            {
+                Debug.Log("Login successful");
+                if (csv.Length > 1)
+                {
+                    gameSystemManager.GetComponent<GameSystemManager>().updateUserName(csv[1]);
+                }
+                gameSystemManager.GetComponent<GameSystemManager>().ChangeState(GameStates.MainMenu);
+            }
+            else if (signifier == ServerToClientSignifiers.LoginFailed)//msg format: signifier, name
+                Debug.Log("Login Failed");
+            else if (signifier == ServerToClientSignifiers.AccountCreationComplete)//msg format: signifier, name
+            {
+                Debug.Log("account creation successful");
+                if (csv.Length > 1)
+                {
+                    gameSystemManager.GetComponent<GameSystemManager>().updateUserName(csv[1]);
+                }
+                gameSystemManager.GetComponent<GameSystemManager>().ChangeState(GameStates.MainMenu);
+            }
+            else if (signifier == ServerToClientSignifiers.AccountCreationFailed)//msg format: signifier, name
+                Debug.Log("Account creation failed");
+        }
     }
     public bool IsConnected()
     {
