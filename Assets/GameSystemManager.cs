@@ -6,10 +6,11 @@ using UnityEngine.UI;
 
 public class GameSystemManager : MonoBehaviour
 {
-    GameObject LogIn, Username, Password, NewUser, Title;
-    GameObject LogInPage;
+    GameObject LogIn, Username, Password, NewUser, Title, Chatbox, InputField, Send;
+    GameObject LogInPage, Chatroom;
     public GameObject networkedClient;
     string currentPlayerName = "";
+    public int playerNumber = 0;
     // Start is called before the first frame update
     void Start()
     {
@@ -37,6 +38,18 @@ public class GameSystemManager : MonoBehaviour
                 case "Title":
                     Title = go;
                     break;
+                case "Chatbox":
+                    Title = go;
+                    break;
+                case "InputField":
+                    NewUser = go;
+                    break;
+                case "Send":
+                    LogInPage = go;
+                    break;
+                case "Chatroom":
+                    Title = go;
+                    break;
                 default:
 
                     break;
@@ -44,14 +57,25 @@ public class GameSystemManager : MonoBehaviour
         }
         LogIn.GetComponent<Button>().onClick.AddListener(SubmitButtonPressed);
         NewUser.GetComponent<Toggle>().onValueChanged.AddListener(CreateToggleChanged);
+        Send.GetComponent<Button>().onClick.AddListener(SendButtonPressed);
 
         ChangeState(GameStates.LoginMenu);
     }
-
+    public void addToChat(string msg)
+    {
+        Chatbox.GetComponent<TMP_Text>().text += msg + "\n";
+    }
     // Update is called once per frame
     void Update()
     {
 
+    }
+    public void SendButtonPressed()
+    {
+        string msg = ClientToServerSignifiers.SendMessage + "," + InputField.GetComponent<InputField>().text + "," + currentPlayerName;
+        Debug.Log("msg:" + msg);
+        networkedClient.GetComponent<NetworkedClient>().SendMessageToHost(msg);
+        Debug.Log("send " + msg);
     }
     public void SubmitButtonPressed()
     {
@@ -78,19 +102,13 @@ public class GameSystemManager : MonoBehaviour
 
         if (newState == GameStates.LoginMenu)
         {
-            LogIn.SetActive(true);
-            NewUser.SetActive(true);
-            Password.SetActive(true);
-            Username.SetActive(true);
-            Title.SetActive(true);
+            LogInPage.SetActive(true);
+            Chatroom.SetActive(false);
         }
         else if (newState == GameStates.MainMenu)
         {
-            LogIn.SetActive(false);
-            NewUser.SetActive(false);
-            Password.SetActive(false);
-            Username.SetActive(false);
-            Title.SetActive(false);
+            LogInPage.SetActive(false);
+            Chatroom.SetActive(true);
         }
     }
 
@@ -100,4 +118,6 @@ static public class GameStates
 {
     public const int LoginMenu = 1;
     public const int MainMenu = 2;
+    public const int WaitingInQueue = 3;
+    public const int Chatting = 4;
 }
