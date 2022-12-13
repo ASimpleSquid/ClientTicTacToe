@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class GameSystemManager : MonoBehaviour
 {
-    GameObject LogIn, Username, Password, NewUser, Title, Chatbox, InputField, Send;
+    GameObject LogIn, Username, Password, NewUser, Title, Chatbox, Input, Send;
     GameObject LogInPage, Chatroom;
     public GameObject networkedClient;
     string currentPlayerName = "";
@@ -15,7 +15,7 @@ public class GameSystemManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        GameObject[] allobjects = FindObjectsOfType<GameObject>();
+        GameObject[] allobjects = FindObjectsOfType<GameObject>(true);
         foreach (GameObject go in allobjects)
         {
             switch(go.name)
@@ -27,7 +27,6 @@ public class GameSystemManager : MonoBehaviour
                     Username = go;
                     break;
                 case "Password":
-                    Debug.Log("Password found chucklenuts");
                     Password = go;
                     break;
                 case "NewUser":
@@ -42,8 +41,8 @@ public class GameSystemManager : MonoBehaviour
                 case "Chatbox":
                     Chatbox = go;
                     break;
-                case "InputField":
-                    InputField = go;
+                case "Input":
+                    Input = go;
                     break;
                 case "Send":
                     Send = go;
@@ -81,7 +80,7 @@ public class GameSystemManager : MonoBehaviour
     }
     public void SendButtonPressed()
     {
-        string msg = ClientToServerSignifiers.SendMessage + "," + InputField.GetComponent<InputField>().text + "," + currentPlayerName;
+        string msg = ClientToServerSignifiers.SendMessage + "," + Input.GetComponent<TMP_InputField>().text + "," + currentPlayerName;
         Debug.Log("msg:" + msg);
         networkedClient.GetComponent<NetworkedClient>().SendMessageToHost(msg);
         Debug.Log("send " + msg);
