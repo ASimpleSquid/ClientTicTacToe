@@ -40,16 +40,16 @@ public class GameSystemManager : MonoBehaviour
                     Title = go;
                     break;
                 case "Chatbox":
-                    Title = go;
+                    Chatbox = go;
                     break;
                 case "InputField":
-                    NewUser = go;
+                    InputField = go;
                     break;
                 case "Send":
-                    LogInPage = go;
+                    Send = go;
                     break;
                 case "Chatroom":
-                    Title = go;
+                    Chatroom = go;
                     break;
                 default:
 
