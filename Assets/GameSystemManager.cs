@@ -11,6 +11,7 @@ public class GameSystemManager : MonoBehaviour
     public GameObject networkedClient;
     string currentPlayerName = "";
     public int playerNumber = 0;
+    bool isPlayer = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -69,6 +70,14 @@ public class GameSystemManager : MonoBehaviour
     void Update()
     {
 
+    }
+    public bool getIsPlayer()
+    {
+        return isPlayer;
+    }
+    public void updateChat(string msg)
+    {
+        Chatbox.GetComponent<TMP_Text>().text += msg + "\n";
     }
     public void SendButtonPressed()
     {

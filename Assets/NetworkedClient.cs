@@ -37,9 +37,6 @@ public class NetworkedClient : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.S))
-            SendMessageToHost("Hello from client");
-
         UpdateNetworkConnection();
     }
 
@@ -121,7 +118,7 @@ public class NetworkedClient : MonoBehaviour
         if (csv.Length > 0)
         {
             int signifier = int.Parse(csv[0]);
-            if (signifier == ServerToClientSignifiers.LoginComplete)//msg format: signifier, name
+            if (signifier == ServerToClientSignifiers.LoginComplete)
             {
                 Debug.Log("Login successful");
                 if (csv.Length > 1)
@@ -130,9 +127,9 @@ public class NetworkedClient : MonoBehaviour
                 }
                 gameSystemManager.GetComponent<GameSystemManager>().ChangeState(GameStates.MainMenu);
             }
-            else if (signifier == ServerToClientSignifiers.LoginFailed)//msg format: signifier, name
+            else if (signifier == ServerToClientSignifiers.LoginFailed)
                 Debug.Log("Login Failed");
-            else if (signifier == ServerToClientSignifiers.AccountCreationComplete)//msg format: signifier, name
+            else if (signifier == ServerToClientSignifiers.AccountCreationComplete)
             {
                 Debug.Log("account creation successful");
                 if (csv.Length > 1)
@@ -141,8 +138,33 @@ public class NetworkedClient : MonoBehaviour
                 }
                 gameSystemManager.GetComponent<GameSystemManager>().ChangeState(GameStates.MainMenu);
             }
-            else if (signifier == ServerToClientSignifiers.AccountCreationFailed)//msg format: signifier, name
+            else if (signifier == ServerToClientSignifiers.AccountCreationFailed)
                 Debug.Log("Account creation failed");
+            else if (signifier == ServerToClientSignifiers.JoinedPlay)
+            {
+                if (csv.Length > 2)
+                    gameSystemManager.GetComponent<GameSystemManager>().updateChat("join player " + csv[2]);
+                if (gameSystemManager.GetComponent<GameSystemManager>().getIsPlayer())
+                    gameSystemManager.GetComponent<GameSystemManager>().ChangeState(GameStates.MainMenu);
+            }
+            else if (signifier == ServerToClientSignifiers.ChatStart)
+            {
+                Debug.Log("players1: " + csv[1]);
+                Debug.Log("players2: " + csv[2]);
+                Debug.Log("players3: " + csv[3]);
+                List<string> otherPlayerList = new List<string>();
+                if (csv.Length > 3)
+                {
+                    if (!otherPlayerList.Contains(csv[1]))
+                        otherPlayerList.Add(csv[1]);
+                    if (!otherPlayerList.Contains(csv[2]))
+                        otherPlayerList.Add(csv[2]);
+                    if (!otherPlayerList.Contains(csv[3]))
+                        otherPlayerList.Add(csv[3]);
+                }
+                if (gameSystemManager.GetComponent<GameSystemManager>().getIsPlayer())
+                    gameSystemManager.GetComponent<GameSystemManager>().ChangeState(GameStates.MainMenu);
+            }
         }
     }
     public bool IsConnected()
@@ -154,6 +176,8 @@ public static class ClientToServerSignifiers
 {
     public const int CreateAccount = 1;
     public const int Login = 2;
+    public const int SendMessage = 3;
+    public const int InputField = 4;
 }
 public static class ServerToClientSignifiers
 {
@@ -161,4 +185,7 @@ public static class ServerToClientSignifiers
     public const int LoginFailed = 2;
     public const int AccountCreationComplete = 3;
     public const int AccountCreationFailed = 4;
+    public const int Chatbox = 5;
+    public const int JoinedPlay = 6;
+    public const int ChatStart = 7;
 }
