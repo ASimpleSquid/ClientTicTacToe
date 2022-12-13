@@ -16,29 +16,30 @@ public class GameSystemManager : MonoBehaviour
         GameObject[] allobjects = FindObjectsOfType<GameObject>();
         foreach (GameObject go in allobjects)
         {
-            if (go.name == "LogIn")
+            switch(go.name)
             {
-                LogIn = go;
-            }
-            else if (go.name == "Username")
-            {
-                Username = go;
-            }
-            else if (go.name == "Password")
-            {
-                Password = go;
-            }
-            else if (go.name == "NewUser")
-            {
-                NewUser = go;
-            }
-            else if (go.name == "LogInPage")
-            {
-                LogInPage = go;
-            }
-            else if (go.name == "Title")
-            {
-                Title = go;
+                case "LogIn":
+                    LogIn = go;
+                    break;
+                case "Username":
+                    Username = go;
+                    break;
+                case "Password":
+                    Debug.Log("Password found chucklenuts");
+                    Password = go;
+                    break;
+                case "NewUser":
+                    NewUser = go;
+                    break;
+                case "LogInPage":
+                    LogInPage = go;
+                    break;
+                case "Title":
+                    Title = go;
+                    break;
+                default:
+
+                    break;
             }
         }
         LogIn.GetComponent<Button>().onClick.AddListener(SubmitButtonPressed);
@@ -55,8 +56,8 @@ public class GameSystemManager : MonoBehaviour
     public void SubmitButtonPressed()
     {
         Debug.Log("button");
-        string p = Password.GetComponent<InputField>().text;
-        string n = Username.GetComponent<InputField>().text;
+        string p = Password.GetComponent<TMP_InputField>().text;
+        string n = Username.GetComponent<TMP_InputField>().text;
         string msg;
         if (NewUser.GetComponent<Toggle>().isOn)
             msg = ClientToServerSignifiers.CreateAccount + "," + n + "," + p;
