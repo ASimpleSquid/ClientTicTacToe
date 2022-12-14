@@ -149,7 +149,7 @@ public class NetworkedClient : MonoBehaviour
                 if (gameSystemManager.GetComponent<GameSystemManager>().getIsPlayer())
                     gameSystemManager.GetComponent<GameSystemManager>().ChangeState(GameStates.MainMenu);
             }
-            else if (signifier == ServerToClientSignifiers.Chatbox)
+            else if (signifier == ServerToClientSignifiers.RecievedMessage)
             {
                 gameSystemManager.GetComponent<GameSystemManager>().updateChat($"{csv[2]} : { csv[1]}");
             }

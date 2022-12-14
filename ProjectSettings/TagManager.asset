@@ -14,6 +14,20 @@ TagManager:
   - Chatbox
   - Send
   - Input
+  - JoinButtons
+  - JoinObserve
+  - JoinPlayer
+  - GameBoard
+  - TL
+  - T
+  - TR
+  - CL
+  - C
+  - CR
+  - BL
+  - B
+  - BR
+  - Leave
   layers:
   - Default
   - TransparentFX

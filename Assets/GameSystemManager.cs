@@ -104,10 +104,18 @@ public class GameSystemManager : MonoBehaviour
         LogIn.GetComponent<Button>().onClick.AddListener(SubmitButtonPressed);
         NewUser.GetComponent<Toggle>().onValueChanged.AddListener(CreateToggleChanged);
         Send.GetComponent<Button>().onClick.AddListener(SendButtonPressed);
-        JoinPlayer.GetComponent<Button>().onClick.AddListener(SubmitButtonPressed);
-        JoinObserve.GetComponent<Toggle>().onValueChanged.AddListener(CreateToggleChanged);
-        Leave.GetComponent<Button>().onClick.AddListener(SendButtonPressed);
-
+        JoinPlayer.GetComponent<Button>().onClick.AddListener(JoinButtonPressed);
+        //JoinObserve.GetComponent<Toggle>().onValueChanged.AddListener(CreateToggleChanged);
+        //Leave.GetComponent<Button>().onClick.AddListener(SendButtonPressed);
+        TL.GetComponent<Button>().onClick.AddListener(TLButtonPressed);
+        T.GetComponent<Button>().onClick.AddListener(TButtonPressed);
+        TR.GetComponent<Button>().onClick.AddListener(TRButtonPressed);
+        CL.GetComponent<Button>().onClick.AddListener(CLButtonPressed);
+        C.GetComponent<Button>().onClick.AddListener(CButtonPressed);
+        CR.GetComponent<Button>().onClick.AddListener(CRButtonPressed);
+        BL.GetComponent<Button>().onClick.AddListener(BLButtonPressed);
+        B.GetComponent<Button>().onClick.AddListener(BButtonPressed);
+        BR.GetComponent<Button>().onClick.AddListener(BRButtonPressed);
         ChangeState(GameStates.LoginMenu);
     }
     public void addToChat(string msg)
