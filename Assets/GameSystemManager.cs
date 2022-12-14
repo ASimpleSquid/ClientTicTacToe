@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class GameSystemManager : MonoBehaviour
 {
-    GameObject LogIn, Username, Password, NewUser, Title, Chatbox, Input, Send;
+    GameObject LogIn, Username, Password, NewUser, Title, Chatbox, Input, Send, History;
     GameObject LogInPage, Chatroom;
     public GameObject networkedClient;
     string currentPlayerName = "";
@@ -50,6 +50,9 @@ public class GameSystemManager : MonoBehaviour
                 case "Chatroom":
                     Chatroom = go;
                     break;
+                case "History":
+                    History = go;
+                    break;
                 default:
 
                     break;
@@ -77,7 +80,7 @@ public class GameSystemManager : MonoBehaviour
     public void updateChat(string msg)
     {
         Debug.Log($"Message: {msg}");
-        Chatbox.GetComponent<TMP_Text>().text += msg + "\n";
+        History.GetComponent<TMP_Text>().text += msg + "\n";
     }
     public void SendButtonPressed()
     {
