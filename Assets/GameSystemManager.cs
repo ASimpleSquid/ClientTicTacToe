@@ -6,8 +6,9 @@ using UnityEngine.UI;
 
 public class GameSystemManager : MonoBehaviour
 {
-    GameObject LogIn, Username, Password, NewUser, Title, Chatbox, Input, Send, History;
-    GameObject LogInPage, Chatroom;
+    GameObject LogIn, Username, Password, NewUser, Title, Chatbox, Input, Send, History, JoinObserve, JoinPlayer;
+    GameObject LogInPage, Chatroom, JoinButtons, GameBoard;
+    GameObject TR, T, TL, CR, C, CL, BR, B, BL, Leave;
     public GameObject networkedClient;
     string currentPlayerName = "";
     public int playerNumber = 0;
@@ -52,6 +53,48 @@ public class GameSystemManager : MonoBehaviour
                     break;
                 case "History":
                     History = go;
+                    break;
+                case "JoinObserve":
+                    JoinObserve = go;
+                    break;
+                case "JoinPlayer":
+                    JoinPlayer = go;
+                    break;
+                case "JoinButtons":
+                    JoinButtons = go;
+                    break;
+                case "GameBoard":
+                    GameBoard = go;
+                    break;
+                case "TR":
+                    TR = go;
+                    break;
+                case "T":
+                    T = go;
+                    break;
+                case "TL":
+                    TL = go;
+                    break;
+                case "CR":
+                    CR = go;
+                    break;
+                case "C":
+                    C = go;
+                    break;
+                case "CL":
+                    CL = go;
+                    break;
+                case "BR":
+                    BR = go;
+                    break;
+                case "B":
+                    B = go;
+                    break;
+                case "BL":
+                    BL = go;
+                    break;
+                case "Leave":
+                    Leave = go;
                     break;
                 default:
 
@@ -102,6 +145,50 @@ public class GameSystemManager : MonoBehaviour
         networkedClient.GetComponent<NetworkedClient>().SendMessageToHost(msg);
     }
     public void CreateToggleChanged(bool newValue)
+    {
+
+    }
+    public void JoinButtonPressed()
+    {
+
+    }
+    public void LeaveButtonPressed()
+    {
+
+    }
+    public void TRButtonPressed()
+    {
+
+    }
+    public void TButtonPressed()
+    {
+
+    }
+    public void TLButtonPressed()
+    {
+
+    }
+    public void CRButtonPressed()
+    {
+
+    }
+    public void CButtonPressed()
+    {
+
+    }
+    public void CLButtonPressed()
+    {
+
+    }
+    public void BRButtonPressed()
+    {
+
+    }
+    public void BButtonPressed()
+    {
+
+    }
+    public void BLButtonPressed()
     {
 
     }
