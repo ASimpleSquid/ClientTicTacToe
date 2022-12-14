@@ -104,6 +104,9 @@ public class GameSystemManager : MonoBehaviour
         LogIn.GetComponent<Button>().onClick.AddListener(SubmitButtonPressed);
         NewUser.GetComponent<Toggle>().onValueChanged.AddListener(CreateToggleChanged);
         Send.GetComponent<Button>().onClick.AddListener(SendButtonPressed);
+        JoinPlayer.GetComponent<Button>().onClick.AddListener(SubmitButtonPressed);
+        JoinObserve.GetComponent<Toggle>().onValueChanged.AddListener(CreateToggleChanged);
+        Leave.GetComponent<Button>().onClick.AddListener(SendButtonPressed);
 
         ChangeState(GameStates.LoginMenu);
     }
@@ -204,19 +207,21 @@ public class GameSystemManager : MonoBehaviour
             LogInPage.SetActive(true);
             Chatroom.SetActive(false);
             GameBoard.SetActive(false);
+            JoinButtons.SetActive(false);
         }
         else if (newState == GameStates.MainMenu)
         {
             LogInPage.SetActive(false);
             Chatroom.SetActive(true);
             GameBoard.SetActive(false);
+            JoinButtons.SetActive(true);
         }
         else if(newState == GameStates.GameRoom)
         {
             LogInPage.SetActive(false);
             Chatroom.SetActive(true);
             GameBoard.SetActive(true);
-
+            JoinButtons.SetActive(false);
         }
     }
 

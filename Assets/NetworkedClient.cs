@@ -153,6 +153,10 @@ public class NetworkedClient : MonoBehaviour
             {
                 gameSystemManager.GetComponent<GameSystemManager>().updateChat($"{csv[2]} : { csv[1]}");
             }
+            else if (signifier == ServerToClientSignifiers.JoinSuccess)
+            {
+                gameSystemManager.GetComponent<GameSystemManager>().ChangeState(GameStates.GameRoom);
+            }
         }
     }
     public bool IsConnected()
@@ -166,6 +170,10 @@ public static class ClientToServerSignifiers
     public const int Login = 2;
     public const int SendMessage = 3;
     public const int InputField = 4;
+    public const int PlayerAttemptJoin = 5;
+    public const int ObserverJoin = 6;
+    public const int LeaveGame = 7;
+    public const int GameMove = 8;
 }
 public static class ServerToClientSignifiers
 {
@@ -175,4 +183,8 @@ public static class ServerToClientSignifiers
     public const int AccountCreationFailed = 4;
     public const int Chatbox = 5;
     public const int JoinedPlay = 6;
+    public const int RecievedMessage = 7;
+    public const int JoinSuccess = 8;
+    public const int JoinFail = 9;
+    public const int GameUpdate = 10;
 }
