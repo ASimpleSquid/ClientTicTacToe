@@ -56,14 +56,16 @@ public class NetworkedClient : MonoBehaviour
             {
                 case NetworkEventType.ConnectEvent:
                     Debug.Log("connected.  " + recConnectionID);
-                    ourClientID = recConnectionID;
+                    if (ourClientID == default(int)) ourClientID = recConnectionID;
                     break;
                 case NetworkEventType.DataEvent:
+                    if (recConnectionID != ourClientID) return;
                     string msg = Encoding.Unicode.GetString(recBuffer, 0, dataSize);
                     ProcessRecievedMsg(msg, recConnectionID);
                     //Debug.Log("got msg = " + msg);
                     break;
                 case NetworkEventType.DisconnectEvent:
+                    if (recConnectionID != ourClientID) return;
                     isConnected = false;
                     Debug.Log("disconnected.  " + recConnectionID);
                     break;
