@@ -76,6 +76,7 @@ public class GameSystemManager : MonoBehaviour
     }
     public void updateChat(string msg)
     {
+        Debug.Log($"Message: {msg}");
         Chatbox.GetComponent<TMP_Text>().text += msg + "\n";
     }
     public void SendButtonPressed()

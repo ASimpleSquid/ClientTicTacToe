@@ -147,23 +147,9 @@ public class NetworkedClient : MonoBehaviour
                 if (gameSystemManager.GetComponent<GameSystemManager>().getIsPlayer())
                     gameSystemManager.GetComponent<GameSystemManager>().ChangeState(GameStates.MainMenu);
             }
-            else if (signifier == ServerToClientSignifiers.ChatStart)
+            else if (signifier == ServerToClientSignifiers.Chatbox)
             {
-                Debug.Log("players1: " + csv[1]);
-                Debug.Log("players2: " + csv[2]);
-                Debug.Log("players3: " + csv[3]);
-                List<string> otherPlayerList = new List<string>();
-                if (csv.Length > 3)
-                {
-                    if (!otherPlayerList.Contains(csv[1]))
-                        otherPlayerList.Add(csv[1]);
-                    if (!otherPlayerList.Contains(csv[2]))
-                        otherPlayerList.Add(csv[2]);
-                    if (!otherPlayerList.Contains(csv[3]))
-                        otherPlayerList.Add(csv[3]);
-                }
-                if (gameSystemManager.GetComponent<GameSystemManager>().getIsPlayer())
-                    gameSystemManager.GetComponent<GameSystemManager>().ChangeState(GameStates.MainMenu);
+                gameSystemManager.GetComponent<GameSystemManager>().updateChat($"{csv[2]} : { csv[1]}");
             }
         }
     }
@@ -187,5 +173,4 @@ public static class ServerToClientSignifiers
     public const int AccountCreationFailed = 4;
     public const int Chatbox = 5;
     public const int JoinedPlay = 6;
-    public const int ChatStart = 7;
 }
