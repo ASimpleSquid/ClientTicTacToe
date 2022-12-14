@@ -150,7 +150,7 @@ public class GameSystemManager : MonoBehaviour
     }
     public void JoinButtonPressed()
     {
-
+        networkedClient.GetComponent<NetworkedClient>().SendMessageToHost($"{ClientToServerSignifiers.PlayerAttemptJoin}");
     }
     public void LeaveButtonPressed()
     {
@@ -158,39 +158,39 @@ public class GameSystemManager : MonoBehaviour
     }
     public void TRButtonPressed()
     {
-
+        networkedClient.GetComponent<NetworkedClient>().SendMessageToHost($"{ClientToServerSignifiers.GameMove},{2}");
     }
     public void TButtonPressed()
     {
-
+        networkedClient.GetComponent<NetworkedClient>().SendMessageToHost($"{ClientToServerSignifiers.GameMove},{1}");
     }
     public void TLButtonPressed()
     {
-
+        networkedClient.GetComponent<NetworkedClient>().SendMessageToHost($"{ClientToServerSignifiers.GameMove},{0}");
     }
     public void CRButtonPressed()
     {
-
+        networkedClient.GetComponent<NetworkedClient>().SendMessageToHost($"{ClientToServerSignifiers.GameMove},{5}");
     }
     public void CButtonPressed()
     {
-
+        networkedClient.GetComponent<NetworkedClient>().SendMessageToHost($"{ClientToServerSignifiers.GameMove},{4}");
     }
     public void CLButtonPressed()
     {
-
+        networkedClient.GetComponent<NetworkedClient>().SendMessageToHost($"{ClientToServerSignifiers.GameMove},{3}");
     }
     public void BRButtonPressed()
     {
-
+        networkedClient.GetComponent<NetworkedClient>().SendMessageToHost($"{ClientToServerSignifiers.GameMove},{8}");
     }
     public void BButtonPressed()
     {
-
+        networkedClient.GetComponent<NetworkedClient>().SendMessageToHost($"{ClientToServerSignifiers.GameMove},{7}");
     }
     public void BLButtonPressed()
     {
-
+        networkedClient.GetComponent<NetworkedClient>().SendMessageToHost($"{ClientToServerSignifiers.GameMove},{6}");
     }
     public void updateUserName(string name)
     {
@@ -203,11 +203,20 @@ public class GameSystemManager : MonoBehaviour
         {
             LogInPage.SetActive(true);
             Chatroom.SetActive(false);
+            GameBoard.SetActive(false);
         }
         else if (newState == GameStates.MainMenu)
         {
             LogInPage.SetActive(false);
             Chatroom.SetActive(true);
+            GameBoard.SetActive(false);
+        }
+        else if(newState == GameStates.GameRoom)
+        {
+            LogInPage.SetActive(false);
+            Chatroom.SetActive(true);
+            GameBoard.SetActive(true);
+
         }
     }
 
@@ -219,4 +228,5 @@ static public class GameStates
     public const int MainMenu = 2;
     public const int WaitingInQueue = 3;
     public const int Chatting = 4;
+    public const int GameRoom = 5;
 }
